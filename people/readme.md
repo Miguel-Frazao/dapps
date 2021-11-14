@@ -1,6 +1,6 @@
 DEPLOY PROD: https://bscscan.com/tx/0x1d040a761a00c36b2511a9ed94406204778476f6a0a22065f9d155f09283dbe1
 
-https://www.migueldvl.com/dapps/people/
+DEMO: https://www.migueldvl.com/dapps/people/
 
 https://www.youtube.com/watch?v=BOTXBO6UOY0
 https://github.com/jklepatch/eattheblocks
