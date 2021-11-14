@@ -19,8 +19,8 @@ NAME: <input id="name-input">
     const contract_addr = '0x8d91e17f6d6cb65dd4f7e1f3c270a3c5981b7e20';
     const abi_str = '[{"inputs":[{"internalType":"string","name":"name","type":"string"}],"name":"addPerson","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getPeople","outputs":[{"components":[{"internalType":"string","name":"name","type":"string"}],"internalType":"struct Group.Person[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"people","outputs":[{"internalType":"string","name":"name","type":"string"}],"stateMutability":"view","type":"function"}]';
 
+    window.ethereum.enable();
     const web3 = new Web3(window.ethereum);
-window.ethereum.enable();
     var abi = JSON.parse(abi_str)
     var contractInstance = new web3.eth.Contract(abi, contract_addr);
 
@@ -28,11 +28,14 @@ window.ethereum.enable();
     writeCount();
     writePeople();
     
-    //const account = web3.eth.accounts.create();
+    var account;
+    web3.eth.getAccounts().then(function(resp) {
+        account = resp[0];
+    });
     document.getElementById('plus1-btn').addEventListener('click', function() {
         var newp = document.getElementById('name-input').value;
         document.getElementById('name-input').value = '';
-        contractInstance.methods.addPerson(newp).send({from: '0x2ba2e8c0d4850d469Ac1B8745F65A4c90a89559C'}, function() {
+        contractInstance.methods.addPerson(newp).send({from: account}, function() {
             writeCount();
             writePeople();
         });
